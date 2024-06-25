@@ -1,0 +1,155 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background: url('../img/img4.jpg') no-repeat;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+h2 {
+  color: #fff;
+  margin-top: 100px;
+  margin-left: 30px;
+
+}
+
+.navbar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  background-color: transparent;
+  backdrop-filter: blur(200px);
+  justify-content: space-between;
+  background-size: 40%;
+  background-position: top;
+  background-position-x: center;
+}
+
+
+
+.navbar a {
+  display: block;
+  color: rgb(255, 255, 255);
+  text-align: left;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-radius: 5px;
+  
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.section {
+  background-color :transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(150px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  padding: 10px;
+  width: calc(100% - 400px); 
+  height: 60vh;
+  margin-left: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.section #delete-form button{
+  cursor: pointer;
+}
+.section .checkbox {
+  cursor: pointer;
+}
+
+#content-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  overflow-x: auto; 
+}
+
+#content-table th:nth-child(1),
+#content-table td:nth-child(1) {
+  width: 5px;
+}
+
+#content-table th:nth-child(2),
+#content-table td:nth-child(2) {
+  width: 150px;
+}
+
+#content-table th:nth-child(3),
+#content-table td:nth-child(3) {
+  width: 300px; 
+}
+
+#content-table th:nth-child(4),
+#content-table td:nth-child(4) {
+  width: 300px; 
+}
+
+#content-table th:nth-child(5),
+#content-table td:nth-child(5) {
+  width: 150px;
+}
+#content-table th,
+#content-table td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  text-align: left;
+  border-radius: 5px;
+  text-decoration: none;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
+
+
+.subject a:hover{
+  text-decoration: none;
+}
+.section .subject {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#content-table th {
+  background-color: transparent;
+}
+#content-table #subject-content a{
+  text-decoration: none;
+  color: rgb(232, 232, 240)
+}
+
+#pagination {
+  text-align: center;
+  margin: 20px auto;
+}
+
+#pagination a {
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+#pagination a:hover {
+  background-color: rgb(255, 255, 255);
+  color: black;
+
+}
+

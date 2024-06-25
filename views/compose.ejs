@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compose Message</title>
+    <link rel="stylesheet" href="/stylesheet/compose.css" type="text/css">
+</head>
+
+
+<body>
+    <div class="navbar">
+        <h2></h2>
+        <a href="/compose-message">Compose message</a>
+        <a href="/outbox">Outbox</a>
+        <a href="/"> Inbox</a>
+        <a href="/logout">Sign out</a>
+    </div>
+    
+    <div class="compose">
+        <h1> Compose email</h1>
+        <% if (typeof(error) !=="undefined" && error) { %>
+            <span style="color: rgb(244, 233, 233);">
+                <%= error %></span>
+            </>
+        <% } %>
+
+        <form action="/compose-message" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Receiver</label>
+                <select id="receiver" name="receiver">
+                    <% if(typeof emails !=="undefined" && emails) { 
+                        for (var i=0; i < emails.length; i++) { 
+                            const selected = typeof(input) !== 'undefined' && input.receiver === emails[i] ? 'selected' : ''; 
+                    %>
+                    <option class="form-control" value="<%= emails[i] %>" <%= selected %>><%= emails[i] %></option>
+                    <% } } %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Subject</label>
+                <input type="text" class="form-control" name="subject" value="<%= typeof(input) !== 'undefined' ? input.subject : '' %>">
+            </div>
+            <div class="form-group">
+                <label>Message</label>
+                <textarea class="form-control" name="message"><%= typeof(input) !== 'undefined' ? input.message : '' %></textarea>
+            </div>
+            <div class ="form-group">
+                <!-- pointer: cursor -->
+                <label for="attachment">Attachment</label>
+                <input type="file" name="attachment" id="attachment">  
+            </div>
+            <button type="submit" class="btn1">Send</button>
+            <button class ="btn2"><a href="/"> Back</a></button>
+        </form>
+    </div>
+</body>
+</html>

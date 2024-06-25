@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gmail</title>
+  <link rel="stylesheet" href="/stylesheet/signin.css" type = "text/css"> 
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="col-sm-6 col-sm-offset-3">
+        <h1><span class="fa fa-sign-in"></span>Sign In</h1>
+        <% if (typeof error !=='undefined' ) { %>
+          <p style="color: red;"><strong>Error:</strong>
+            <%= error %>
+          </p>
+          <% } %>
+            <form action="/signin" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Email" name="email"
+                  value="<%= typeof(input) !== 'undefined' ? input.email : '' %>" required>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" name="password" required>
+              </div>
+
+              <div class="Remember">
+                <label><input type="checkbox"> Remember me </label>
+              </div>
+              <button type="submit" class="btn">Login</button>
+            </form>
+            <div class="Register">
+              <p>Don't have an account? <a href="/signup"> Sign Up</a></p>
+            </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

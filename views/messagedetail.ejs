@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Detail</title>
+    <link rel="stylesheet" href="/stylesheet/message-detail.css" type="text/css">
+</head>
+
+
+<body>
+    <div class="navbar">
+        <h2></h2>
+        <a href="/compose-message">Compose message</a>
+        <a href="/outbox">Outbox</a>
+        <a href="/"> Inbox</a>
+        <a href="/logout">Sign out</a>
+    </div>
+    <div class="Message-detail">
+        <h1> Message detail</h1>
+        <% if (typeof(data) !=="undefined" && data) { %>
+            <div>Subject: <%= data.subject %>
+            </div>
+            <div>Message: <%= data.message %>
+            </div>
+            <div> <% if (data.attachment) { %>
+                <p><strong>Attachment:</strong>
+                    <a href="/uploads/<%= data.attachment %>" target="_blank" download>
+                        Download
+                    </a>
+                </p>
+                <%}%>
+            <div>Send at: <%= Intl.DateTimeFormat(undefined, { timeStyle: "medium" , dateStyle: "medium" , }).format(new
+                    Date(data.sendAt)) %>
+            </div>
+            
+            <% } else { %>
+                <span>Not found</span>
+                <% } %>
+            <div>
+                <button class = "btn"><a href=<%=abc%>>Go Back</a></button>
+            </div>
+    </div>
+
+
+</body>
+
+</html>

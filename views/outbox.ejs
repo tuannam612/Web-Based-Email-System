@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outbox</title>
+    <link rel="stylesheet" href="/stylesheet/outbox.css" type="text/css">
+
+</head>
+
+<body>
+    <% if (typeof(error) !=="undefined" && error) { %>
+        <span style="color: red;">
+            <%= error %>
+        </>
+    <% } %>
+    <div class="navbar">
+        <h2> <%= typeof fullname !=="undefined" && fullname ? fullname : "" %>
+        </h2>
+        <a href="/compose-message">Compose message</a>
+        <a href="/">Inbox</a>
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="section">
+        <% if (typeof data !=="undefined" && data.items.length) { const items=data.items; %>
+            <form id="delete-form">
+                <button type="submit">Delete</button>
+                <input name="deleteAction" value="sender" hidden />
+                 <table id="content-table">
+                    <tr>
+                        <th></th>
+                        <th>Receiver</th>
+                        <th>Subject</th>
+                        <th>Message</th>
+                        <th>Send at</th>
+                    </tr>
+                    <% for ( var i=0; i < items.length; i++ ) { %>
+                        <tr id="row-<%= items[i].id %>">
+                            <td><input class= "checkbox" type="checkbox" id="<%= items[i].id %>" name="ids" value="<%= items[i].id %>">
+                            </td>
+                            <td>
+                                <%= items[i].receiverName %>
+                            </td>
+                            <td id = "subject-content">
+                                <% if(items[i].subject == '') { %>
+                                    <a href="/message/<%= items[i].id %>"> (No Subject)</a>
+                                    <% } else { %>
+                                        <a href="/message/<%= items[i].id %>"> 
+                                            <%= items[i].subject %>
+                                    </a>
+                                    <% } %>
+                            </td>
+                            <td>
+                                <%= items[i].message %>
+                            </td>
+                            <td>
+                                <%= Intl.DateTimeFormat(undefined, { 
+                                    timeStyle: "medium" ,
+                                    dateStyle: "medium" ,
+                                    }).format(new Date(items[i].sendAt)) %>
+                            </td>
+                        </tr>
+                        <% 
+                    } %>
+                </table>
+            </form>
+            <% } %>
+                <% if (typeof data !=="undefined" && data.totalPage) { const totalPage=data.totalPage; %>
+                    <div id="pagination">
+                        <% for (var i=1; i <=totalPage; i++) { %>
+                            <a href="/outbox?pageNumber=<%= i %>">
+                                <%= i %>
+                            </a>
+                            <% } %>
+                    </div>
+                    <% } %>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            const form = document.getElementById("delete-form");
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const ids = document.getElementsByName("ids");
+                const deleteAction = document.getElementsByName("deleteAction");
+                const data = {
+                    ids: [],
+                    deleteAction: deleteAction[0].value,
+                };
+                ids.forEach(id => {
+                    if (id.checked) {
+                        data.ids.push(id.value);
+                    }
+                })
+                const params = new URLSearchParams();
+                params.set("action", data.deleteAction);
+                data.ids.forEach(id => {
+                    params.append("ids", id);
+                })
+                fetch("/api/delete/?" + params.toString(), {
+                    method: "DELETE",
+                }).then(res => res.json()).then(res => {
+
+                    data.ids.forEach(id => {
+                        const row = document.getElementById("row-" + id);
+                        row.remove();
+                    })
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
